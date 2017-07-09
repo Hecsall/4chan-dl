@@ -1,5 +1,6 @@
 # 4chan-dl
-Simple 4chan image downloader
+Simple 4chan image downloader.
+
 Could be better written, but for now it works.
 
 **NOTICE: this only works with Python 3**
