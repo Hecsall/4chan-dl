@@ -8,6 +8,9 @@ Could be better written, but for now it works.
 ## Usage
 python3 4chan-dl.py [-h] [-o OUTPUT] [-l LIMIT] url [url ...]
 
+Tested with urls like:
+* http://boards.4chan.org/a/
+* http://boards.4chan.org/a/thread/123456789
 
 #### Positional arguments:
 
