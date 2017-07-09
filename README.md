@@ -11,6 +11,7 @@ python3 4chan-dl.py [-h] [-o OUTPUT] [-l LIMIT] url [url ...]
 Tested with urls like:
 * http://boards.4chan.org/a/
 * http://boards.4chan.org/a/thread/123456789
+* https://yuki.la/jp/page/23541
 
 #### Positional arguments:
 

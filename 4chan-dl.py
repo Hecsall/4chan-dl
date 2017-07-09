@@ -4,8 +4,10 @@ import argparse
 import os
 from io import open as iopen
 import urllib3
+urllib3.disable_warnings()
 from urllib.parse import urlsplit
 from html.parser import HTMLParser
+
 
 
 # HTML Parser -> Finding images in the thread
@@ -18,7 +20,7 @@ class ThreadParser(HTMLParser):
 	def handle_starttag(self, tag, attrs):
 		images = []
 		if tag=="a" and "class" in dict(attrs) and dict(attrs)["class"] == "fileThumb":
-			self.images.append("http:" + str(dict(attrs)["href"]))
+			self.images.append("https:" + str(dict(attrs)["href"]))
 			self.counter += 1
 
 
@@ -57,19 +59,19 @@ def main(threadUrl, directoryName, limit):
 		html = str(r.data)
 		parser.feed(html)
 
-		# Check if images are found
-		if parser.counter == 0:
-			print("No images found!")
-			return
-		else:
-			print("Found {} images! Download starting in directory \"{}\"\n".format(parser.counter, directory))
-
 		# Manage the directory name
 		if directoryName == "threadDirectory":
 			tmpName = urlsplit(threadUrl)[2].split('/')
 			directory = str(tmpName[-1 if tmpName[-1] != '' else -2])
 		else:
 			directory = directoryName[1:] if directoryName[0] == '/' else directoryName
+
+		# Check if images are found
+		if parser.counter == 0:
+			print("No images found!")
+			return
+		else:
+			print("Found {} images! Download starting in directory \"{}\"\n".format(parser.counter, directory))
 
 		# Creates the directory
 		if not os.path.exists(directory):
@@ -85,6 +87,7 @@ def main(threadUrl, directoryName, limit):
 
 	else:
 		print("Error loading the URL, ensure to write it correctly.")
+
 
 
 if __name__ == "__main__":
