@@ -8,11 +8,11 @@ Could be better written, but for now it works.
 python3 4chan-dl.py [-h] [-o OUTPUT] [-l LIMIT] url [url ...]
 
 
-##### Positional arguments:
+#### Positional arguments:
 
 * **url**  4chan thread URL
 
-##### Optional arguments:
+#### Optional arguments:
 
 * **-h, --help**  show this help message and exit
 * **-o OUTPUT, --output OUTPUT**  Directory name where the script saves the images. Default directory name will be the thread id
