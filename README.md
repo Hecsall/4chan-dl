@@ -1,18 +1,21 @@
 # 4chan-dl
-Simple 4chan image downloader (WIP)
+Simple 4chan image downloader
 
-I will work on this when i have more time.
-
-
-### Requirements
-For now this requires 2 components:
-
-_pip install requests_
-_pip install lxml_
+Could be better written, but for now it works.
 
 
 ### Usage
-python3 4chan-dl.py
+python3 4chan-dl.py [-h] [-o OUTPUT] [-l LIMIT] url [url ...]
 
-Then input the Thread URL and it will download all the images he found.
-Downloaded images will be saved in the *same folder* of the python script. In the future i will make it to create a separate folder.
+Downloads 4chan thread images.
+
+positional arguments:
+  url                   4chan thread URL
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Directory name where the script saves the images.
+                        Default directory name will be the thread id
+  -l LIMIT, --limit LIMIT
+                        Limit how many images to download
