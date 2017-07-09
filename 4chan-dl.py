@@ -8,7 +8,6 @@ from urllib.parse import urlsplit
 from html.parser import HTMLParser
 
 
-
 # HTML Parser -> Finding images in the thread
 class ThreadParser(HTMLParser):
 	def __init__(self):
@@ -21,7 +20,6 @@ class ThreadParser(HTMLParser):
 		if tag=="a" and "class" in dict(attrs) and dict(attrs)["class"] == "fileThumb":
 			self.images.append("http:" + str(dict(attrs)["href"]))
 			self.counter += 1
-
 
 
 # Function that downloads images
@@ -38,7 +36,6 @@ def imageDownloader(images, directory, limit=0):
 			with iopen(directory + "/" + file_name, 'wb') as file:
 				file.write(image.data)
 				print("> Image {} downloaded ({}/{})".format(file_name, index, len(images) if limit == 0 else limit))
-
 
 
 def main(threadUrl, directoryName, limit):
@@ -60,6 +57,13 @@ def main(threadUrl, directoryName, limit):
 		html = str(r.data)
 		parser.feed(html)
 
+		# Check if images are found
+		if parser.counter == 0:
+			print("No images found!")
+			return
+		else:
+			print("Found {} images! Download starting in directory \"{}\"\n".format(parser.counter, directory))
+
 		# Manage the directory name
 		if directoryName == "threadDirectory":
 			tmpName = urlsplit(threadUrl)[2].split('/')
@@ -71,7 +75,7 @@ def main(threadUrl, directoryName, limit):
 		if not os.path.exists(directory):
 			os.makedirs(directory)
 
-		print("Found {} images! Download starting in directory \"{}\"\n".format(parser.counter, directory))
+		# Check if limit is set
 		if limit != 0:
 			print("Download limit set to {}\n".format(limit))
 
@@ -81,7 +85,6 @@ def main(threadUrl, directoryName, limit):
 
 	else:
 		print("Error loading the URL, ensure to write it correctly.")
-
 
 
 if __name__ == "__main__":
