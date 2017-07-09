@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+
 import argparse
 import os
 from io import open as iopen
@@ -91,4 +92,4 @@ if __name__ == "__main__":
 
 	args = parser.parse_args()
 
-	main(*args.url, args.output, args.limit)
+	main(args.url, args.output, args.limit)
