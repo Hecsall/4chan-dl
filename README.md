@@ -18,3 +18,8 @@ python3 4chan-dl.py [-h] [-o OUTPUT] [-l LIMIT] url [url ...]
 * **-h, --help**  show this help message and exit
 * **-o OUTPUT, --output OUTPUT**  Directory name where the script saves the images. Default directory name will be the thread id
 * **-l LIMIT, --limit LIMIT**  Limit how many images to download
+
+
+### Nice to know
+Using the **-o** argument, will eventually remove leading "**/**" to prevent the script to write in your root directory for security purposes.
+You will still be able to write paths like "**-o ../someFolder**".
