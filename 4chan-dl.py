@@ -64,7 +64,7 @@ def main(threadUrl, directoryName, limit):
 			tmpName = urlsplit(threadUrl)[2].split('/')
 			directory = str(tmpName[-1 if tmpName[-1] != '' else -2])
 		else:
-			directory = directoryName[1:] if directoryName[0] == '/' else directoryName
+			directory = directoryName
 
 		# Check if images are found
 		if parser.counter == 0:
@@ -94,7 +94,7 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Downloads 4chan thread images.')
 
 	parser.add_argument ('url', nargs='+', help='4chan thread URL')
-	parser.add_argument ('-o', '--output', default='threadDirectory', help='Directory name where the script saves the images. Default directory name will be the thread id.')
+	parser.add_argument ('-o', '--output', default='threadDirectory', help='Path where the script saves the images. Default will create a directory in the project folder and directory name will be the thread id.')
 	parser.add_argument ('-l', '--limit', default=0, type=int, help='Limit how many images to download.')
 
 	args = parser.parse_args()
