@@ -21,7 +21,7 @@ Tested with urls like:
 #### Optional arguments:
 
 * **-h, --help**  show this help message and exit
-* **-o OUTPUT, --output OUTPUT**  Directory name where the script saves the images. Default directory name will be the thread id
+* **-o OUTPUT, --output OUTPUT**  Directory name where the script saves the images. If not specified the script creates directory, whose name is the thread id, in the working folder. 
 * **-l LIMIT, --limit LIMIT**  Limit how many images to download.
 
 

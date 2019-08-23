@@ -9,6 +9,31 @@ from urllib.parse import urlsplit
 from html.parser import HTMLParser
 
 
+#Create directory function
+def create_dir(folder):
+	i = 1
+	tmp, remaining_folder_list = folder.split("/",i) #first split
+	tmp2 = ''.join(tmp)
+	check = 0  #exit while counter
+	path = "/" + tmp2
+	while(check != 1):
+		os.chdir(path)
+		path + "/"
+		i + 1
+		if("/" in remaining_folder_list): #checking if it is last dir
+			tmp, remaining_folder_list = remaining_folder_list.split("/", 1)
+			#print (tmp)
+			tmp2 = ''.join(tmp)
+			path = path + "/" + tmp2	
+		else:    #last dir
+			tmp2 = ''.join(remaining_folder_list)
+			path = path + "/" + tmp2
+			if not os.path.exists(path):  #if doesn't exists create dir
+				os.mkdir(path)
+			check = 1 #exit while
+	return path
+
+
 
 # HTML Parser -> Finding images in the thread
 class ThreadParser(HTMLParser):
@@ -39,7 +64,6 @@ def imageDownloader(images, directory, limit=0):
 				file.write(image.data)
 				print("> Image {} downloaded ({}/{})".format(file_name, index, len(images) if limit == 0 else limit))
 
-
 def main(threadUrl, directoryName, limit):
 	print("""
   ██╗  ██╗ ██████╗██╗  ██╗ █████╗ ███╗   ██╗
@@ -52,6 +76,7 @@ def main(threadUrl, directoryName, limit):
 
 	http = urllib3.PoolManager()
 	r = http.request('GET', threadUrl, headers={'User-Agent': 'Mozilla/5.0'})
+	flag = 0
 
 	# Check if the page responds correctly (not 404 or other errors)
 	if r.status == 200:
@@ -63,6 +88,7 @@ def main(threadUrl, directoryName, limit):
 		if directoryName == "threadDirectory":
 			tmpName = urlsplit(threadUrl)[2].split('/')
 			directory = str(tmpName[-1 if tmpName[-1] != '' else -2])
+			flag = 1
 		else:
 			directory = directoryName[1:] if directoryName[0] == '/' else directoryName
 
@@ -74,8 +100,10 @@ def main(threadUrl, directoryName, limit):
 			print("Found {} images! Download starting in directory \"{}\"\n".format(parser.counter, directory))
 
 		# Creates the directory
-		if not os.path.exists(directory):
+		if (flag == 1):
 			os.makedirs(directory)
+		else:
+			directory = create_dir(directory)	
 
 		# Check if limit is set
 		if limit != 0:
@@ -100,3 +128,4 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 
 	main(*args.url, args.output, args.limit)
+    
